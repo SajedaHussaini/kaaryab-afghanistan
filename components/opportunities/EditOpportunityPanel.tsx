@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useOpportunities } from "@/context/OpportunityContext";
 import { useToast } from "@/context/ToastContext";
 import type { OpportunityInput } from "@/types/opportunity";
+import { useCallback } from "react";
 
 export function EditOpportunityPanel({ id }: { id: string }) {
   const router = useRouter();
@@ -29,15 +30,25 @@ export function EditOpportunityPanel({ id }: { id: string }) {
     );
   }
 
-  const submit = async (input: OpportunityInput) => {
-    updateOpportunity(id, input);
-    notify({
-      title: "Opportunity updated",
-      description: "Your changes were saved in this browser.",
-      variant: "success",
-    });
+  const submit = useCallback(
+    async (input: OpportunityInput) => {
+      updateOpportunity(id, input);
+
+      notify({
+        title: "Opportunity updated",
+        description: "Your changes were saved in this browser.",
+        variant: "success",
+      });
+
+      router.push(`/opportunities/${id}`);
+    },
+    [id, notify, router, updateOpportunity]
+  );
+
+  const cancel = useCallback(() => {
     router.push(`/opportunities/${id}`);
-  };
+  }, [router, id]);
+
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 pb-14 sm:px-6 lg:px-8">
@@ -47,6 +58,7 @@ export function EditOpportunityPanel({ id }: { id: string }) {
         allowAdminFields={isAdmin}
         submitLabel="Save opportunity"
         onSubmit={submit}
+        onCancel={cancel}
       />
     </div>
   );

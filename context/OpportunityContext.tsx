@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -32,11 +33,14 @@ type OpportunityContextValue = {
 
 const OpportunityContext = createContext<OpportunityContextValue | null>(null);
 
+type OpportunityProviderProps = {
+  children: ReactNode;
+};
+
 export function OpportunityProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: OpportunityProviderProps) {
+
   const [opportunities, setOpportunities] =
     useState<Opportunity[]>(seedOpportunities);
   const [isReady, setIsReady] = useState(false);
@@ -86,10 +90,10 @@ export function OpportunityProvider({
         current.map((item) =>
           item.id === id
             ? {
-                ...item,
-                ...input,
-                updatedAt: new Date().toISOString(),
-              }
+              ...item,
+              ...input,
+              updatedAt: new Date().toISOString(),
+            }
             : item,
         ),
       );
@@ -119,10 +123,10 @@ export function OpportunityProvider({
       current.map((item) =>
         item.id === id
           ? {
-              ...item,
-              featured: !item.featured,
-              updatedAt: new Date().toISOString(),
-            }
+            ...item,
+            featured: !item.featured,
+            updatedAt: new Date().toISOString(),
+          }
           : item,
       ),
     );

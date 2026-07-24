@@ -10,6 +10,7 @@ import {
 } from "react";
 import { storageKeys } from "@/lib/constants";
 import { readStorage, writeStorage } from "@/lib/storage";
+import type { ReactNode } from "react";
 
 type Theme = "light" | "dark";
 
@@ -21,7 +22,11 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+type ThemeProviderProps = {
+  children: ReactNode;
+};
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {

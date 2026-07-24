@@ -30,9 +30,17 @@ import { useOpportunities } from "@/context/OpportunityContext";
 export function HomePage() {
   const { opportunities } = useOpportunities();
   const [query, setQuery] = useState("");
-  const stats = getDashboardStats(opportunities);
-  const featured = getFeaturedOpportunities(opportunities).slice(0, 4);
-  const expiring = getExpiringOpportunities(opportunities).slice(0, 4);
+  // const stats = getDashboardStats(opportunities);
+  // const featured = getFeaturedOpportunities(opportunities).slice(0, 4);
+  // const expiring = getExpiringOpportunities(opportunities).slice(0, 4);
+
+const { stats, featured, expiring } = useMemo(() => ({
+  stats: getDashboardStats(opportunities),
+  featured: getFeaturedOpportunities(opportunities).slice(0, 4),
+  expiring: getExpiringOpportunities(opportunities).slice(0, 4),
+}), [opportunities]);
+
+
   const searchResults = useMemo(
     () =>
       query.trim()

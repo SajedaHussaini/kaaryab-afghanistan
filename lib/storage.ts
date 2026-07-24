@@ -4,25 +4,38 @@ export function readStorage<T>(key: string, fallback: T): T {
   }
 
   try {
-    const raw = window.localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : fallback;
+    const raw = localStorage.getItem(key);
+
+    if (raw === null) {
+      return fallback;
+    }
+
+    return JSON.parse(raw) as T;
   } catch {
     return fallback;
   }
 }
 
-export function writeStorage<T>(key: string, value: T) {
+export function writeStorage<T>(key: string, value: T): void {
   if (typeof window === "undefined") {
     return;
   }
 
-  window.localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore storage errors (quota exceeded, private mode, etc.)
+  }
 }
 
-export function removeStorage(key: string) {
+export function removeStorage(key: string): void {
   if (typeof window === "undefined") {
     return;
   }
 
-  window.localStorage.removeItem(key);
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    // Ignore storage errors
+  }
 }

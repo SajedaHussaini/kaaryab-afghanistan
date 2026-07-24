@@ -6,8 +6,9 @@ import { Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { contactSchema, type ContactFormValues } from "@/lib/schemas";
 import { useToast } from "@/context/ToastContext";
+import { memo, useCallback } from "react";
 
-export function ContactForm() {
+export const ContactForm = memo(function ContactForm() {
   const { notify } = useToast();
   const {
     register,
@@ -24,29 +25,34 @@ export function ContactForm() {
     },
   });
 
-  const submit = async (values: ContactFormValues) => {
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-
-    if (!response.ok) {
-      notify({
-        title: "Message was not sent",
-        description: "Please check the form and try again.",
-        variant: "error",
+  const submit = useCallback(
+    async (values: ContactFormValues) => {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
       });
-      return;
-    }
 
-    notify({
-      title: "Message accepted",
-      description: "The demo contact API received your message.",
-      variant: "success",
-    });
-    reset();
-  };
+      if (!response.ok) {
+        notify({
+          title: "Failed to send message",
+          description: "We couldn't send your message. Please try again later.",
+          variant: "error",
+        });
+        return;
+      }
+
+      notify({
+        title: "Message sent successfully",
+        description:
+          "Thank you for contacting KaarYab Afghanistan. We'll get back to you as soon as possible.",
+        variant: "success",
+      });
+
+      reset();
+    },
+    [notify, reset]
+  );
 
   const inputClass =
     "h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900";
@@ -125,4 +131,4 @@ export function ContactForm() {
       </div>
     </form>
   );
-}
+});

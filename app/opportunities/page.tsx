@@ -12,12 +12,32 @@ export default function OpportunitiesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Opportunity board"
+
         title="Find your next opportunity"
         description="Search by title, category, location, work mode, deadline, and opportunity type. Approved records are shown publicly while new submissions wait for admin review."
-        badge="Demo Data"
+
       />
       <OpportunitiesExplorer />
     </>
   );
 }
+
+// export default async function OpportunitiesPage({
+//   searchParams,
+// }: {
+//   searchParams: Promise<{ category?: string }>;
+// }) {
+//   const { category } = await searchParams;
+
+//   return (
+//     <>
+//       <PageHeader
+//         title="Find your next opportunity"
+//         description="Search by title, category, location, work mode, deadline, and opportunity type. Approved records are shown publicly while new submissions wait for admin review."
+//       />
+
+//       <OpportunitiesExplorer initialCategory={category ?? "All"} />
+      
+//   );
+// }
+

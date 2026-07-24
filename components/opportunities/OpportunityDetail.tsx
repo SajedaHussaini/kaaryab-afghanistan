@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   ArrowLeft,
   Bookmark,
@@ -49,16 +49,30 @@ export function OpportunityDetail({ id }: { id: string }) {
 
   const saved = isSaved(opportunity.id);
 
-  const confirmDelete = () => {
+  const confirmDelete = useCallback(() => {
     deleteOpportunity(opportunity.id);
+
     notify({
       title: "Opportunity deleted",
       description: "The local demo record was removed.",
       variant: "success",
     });
+
     setIsDeleteOpen(false);
     router.push("/opportunities");
-  };
+  }, [deleteOpportunity, notify, opportunity.id, router]);
+
+  const openDeleteModal = useCallback(() => {
+    setIsDeleteOpen(true);
+  }, []);
+
+  const closeDeleteModal = useCallback(() => {
+    setIsDeleteOpen(false);
+  }, []);
+
+  const handleToggleSaved = useCallback(() => {
+    toggleSaved(opportunity.id);
+  }, [toggleSaved, opportunity.id]);
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
@@ -78,9 +92,9 @@ export function OpportunityDetail({ id }: { id: string }) {
             <Badge tone="violet">{opportunity.opportunityType}</Badge>
             <StatusBadge status={opportunity.status} />
             <DeadlineBadge deadline={opportunity.deadline} />
-            {opportunity.source === "demo" ? (
+            {opportunity.source === "demo" && (
               <Badge tone="amber">Demo Data</Badge>
-            ) : null}
+            )}
           </div>
 
           <h1 className="mt-5 text-3xl font-bold tracking-normal text-neutral-950 dark:text-white sm:text-4xl">
@@ -164,7 +178,7 @@ export function OpportunityDetail({ id }: { id: string }) {
             <Button
               variant={saved ? "secondary" : "outline"}
               size="lg"
-              onClick={() => toggleSaved(opportunity.id)}
+              onClick={handleToggleSaved}
             >
               {saved ? (
                 <BookmarkCheck className="h-4 w-4" aria-hidden="true" />
@@ -183,16 +197,13 @@ export function OpportunityDetail({ id }: { id: string }) {
             <Button
               variant="danger"
               size="lg"
-              onClick={() => setIsDeleteOpen(true)}
+              onClick={openDeleteModal}
             >
               <Trash2 className="h-4 w-4" aria-hidden="true" />
               Delete
             </Button>
           </div>
-          <p className="mt-4 text-sm leading-6 text-neutral-500 dark:text-neutral-400">
-            CRUD actions update this browser using LocalStorage for the capstone
-            demo.
-          </p>
+
         </aside>
       </div>
 
@@ -203,7 +214,7 @@ export function OpportunityDetail({ id }: { id: string }) {
         confirmLabel="Delete"
         destructive
         onConfirm={confirmDelete}
-        onClose={() => setIsDeleteOpen(false)}
+        onClose={closeDeleteModal}
       />
     </div>
   );

@@ -12,6 +12,7 @@ import { storageKeys } from "@/lib/constants";
 import { readStorage, writeStorage } from "@/lib/storage";
 import { useOpportunities } from "@/context/OpportunityContext";
 import type { Opportunity } from "@/types/opportunity";
+import type { ReactNode } from "react";
 
 type SavedContextValue = {
   savedIds: string[];
@@ -23,7 +24,11 @@ type SavedContextValue = {
 
 const SavedContext = createContext<SavedContextValue | null>(null);
 
-export function SavedProvider({ children }: { children: React.ReactNode }) {
+type SavedProviderProps = {
+  children: ReactNode;
+};
+
+export function SavedProvider({ children }: SavedProviderProps) {
   const { opportunities } = useOpportunities();
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [isReady, setIsReady] = useState(false);
@@ -43,9 +48,11 @@ export function SavedProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isReady, savedIds]);
 
+  const savedIdSet = useMemo(() => new Set(savedIds), [savedIds]);
+
   const isSaved = useCallback(
-    (id: string) => savedIds.includes(id),
-    [savedIds],
+    (id: string) => savedIdSet.has(id),
+    [savedIdSet],
   );
 
   const toggleSaved = useCallback((id: string) => {
@@ -61,8 +68,8 @@ export function SavedProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const savedOpportunities = useMemo(
-    () => opportunities.filter((item) => savedIds.includes(item.id)),
-    [opportunities, savedIds],
+    () => opportunities.filter((item) => savedIdSet.has(item.id)),
+    [opportunities, savedIdSet],
   );
 
   const value = useMemo(

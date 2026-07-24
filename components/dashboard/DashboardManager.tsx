@@ -27,6 +27,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { useOpportunities } from "@/context/OpportunityContext";
 import { useToast } from "@/context/ToastContext";
+import { useCallback, useMemo } from "react";
 
 export function DashboardManager() {
   const { user } = useAuth();
@@ -38,27 +39,47 @@ export function DashboardManager() {
     resetDemoData,
   } = useOpportunities();
   const { notify } = useToast();
-  const stats = getDashboardStats(opportunities);
-  const recent = getRecentOpportunities(opportunities, 7);
-  const canModerate = user?.role === "admin";
+ 
+  const stats = useMemo(
+  () => getDashboardStats(opportunities),
+  [opportunities]
+);
 
-  const moderate = (id: string, status: "approved" | "rejected") => {
+  const recent = useMemo(
+  () => getRecentOpportunities(opportunities, 7),
+  [opportunities]
+);
+  
+  const canModerate = useMemo(
+  () => user?.role === "admin",
+  [user]
+);
+
+  const moderate = useCallback(
+  (id: string, status: "approved" | "rejected") => {
     setOpportunityStatus(id, status);
+
     notify({
       title: status === "approved" ? "Opportunity approved" : "Opportunity rejected",
       description: "The local approval status was updated.",
       variant: "success",
     });
-  };
+  },
+  [setOpportunityStatus, notify]
+);
 
-  const remove = (id: string) => {
+  const remove = useCallback(
+  (id: string) => {
     deleteOpportunity(id);
+
     notify({
       title: "Opportunity deleted",
       description: "The local dashboard record was removed.",
       variant: "success",
     });
-  };
+  },
+  [deleteOpportunity, notify]
+);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">

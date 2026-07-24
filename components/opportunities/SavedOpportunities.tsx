@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { OpportunityCard } from "@/components/opportunities/OpportunityCard";
 import { useSaved } from "@/context/SavedContext";
+import { useCallback } from "react";
 
 export function SavedOpportunities() {
   const { savedOpportunities, clearSaved } = useSaved();
+  const handleClearSaved = useCallback(() => {
+  clearSaved();
+}, [clearSaved]);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
@@ -17,7 +21,7 @@ export function SavedOpportunities() {
             <p className="text-sm text-neutral-600 dark:text-neutral-300">
               {savedOpportunities.length} saved opportunities in this browser.
             </p>
-            <Button variant="outline" size="sm" onClick={clearSaved}>
+            <Button variant="outline" size="sm" onClick={handleClearSaved}>
               <BookmarkX className="h-4 w-4" aria-hidden="true" />
               Clear saved
             </Button>

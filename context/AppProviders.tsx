@@ -5,8 +5,13 @@ import { OpportunityProvider } from "@/context/OpportunityContext";
 import { SavedProvider } from "@/context/SavedContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { ToastProvider } from "@/context/ToastContext";
+import type { ReactNode } from "react";
 
-export function AppProviders({ children }: { children: React.ReactNode }) {
+type AppProvidersProps = {
+  children: ReactNode;
+};
+
+export function AppProviders({ children }: AppProvidersProps) {
   return (
     <ThemeProvider>
       <ToastProvider>

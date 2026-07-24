@@ -1,41 +1,50 @@
 import Link from "next/link";
-import { BriefcaseBusiness, Github, Send } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  GitBranch,
+  Bird,
+  Share2,
+} from "lucide-react";
 import { appNavItems } from "@/lib/constants";
 
 export function Footer() {
   return (
     <footer className="border-t border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        {/* Column 1 */}
         <div>
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-md bg-emerald-600 text-white">
-              <BriefcaseBusiness className="h-5 w-5" aria-hidden="true" />
+              <BriefcaseBusiness className="h-5 w-5" />
             </span>
-            <div>
-              <p className="font-bold text-neutral-950 dark:text-white">
-                KaarYab Afghanistan
-              </p>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                Jobs, scholarships, remote work, and skill-building in one place.
-              </p>
-            </div>
-          </div>
-          <p className="mt-4 max-w-md text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-            This capstone project uses demo data for learning. Verify any real
-            opportunity before applying.
+
+            <span className="text-xl font-bold text-emerald-600">
+              KaarYab Afghanistan
+            </span>
+          </Link>
+
+          <p className="mt-5 text-sm leading-7 text-neutral-600 dark:text-neutral-300">
+            Helping Afghan youth discover jobs, internships,
+            scholarships, and career opportunities in one place.
           </p>
+
+          <span className="mt-5 inline-flex rounded-md bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+            Demo Data – Educational Purposes Only
+          </span>
         </div>
 
+        {/* Column 2 */}
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-normal text-neutral-500 dark:text-neutral-400">
-            Explore
+          <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+            Quick Links
           </h2>
-          <div className="mt-3 grid gap-2">
-            {appNavItems.slice(0, 6).map((item) => (
+
+          <div className="mt-4 flex flex-col gap-3">
+            {appNavItems.map((item) => (
               <Link
-                className="text-sm font-medium text-neutral-700 hover:text-emerald-700 dark:text-neutral-200 dark:hover:text-emerald-300"
-                href={item.href}
                 key={item.href}
+                href={item.href}
+                className="text-sm text-neutral-600 transition hover:text-emerald-600 dark:text-neutral-300 dark:hover:text-emerald-300"
               >
                 {item.label}
               </Link>
@@ -43,31 +52,59 @@ export function Footer() {
           </div>
         </div>
 
+
+        {/* Column 3 */}
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-normal text-neutral-500 dark:text-neutral-400">
-            Capstone Links
+          <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+            Features
           </h2>
-          <div className="mt-3 grid gap-2">
+
+          <ul className="mt-4 space-y-3 text-sm text-neutral-600 dark:text-neutral-300">
+            <li>• Advanced Search</li>
+            <li>• Verified Opportunities</li>
+            <li>• Save Opportunities</li>
+            <li>• Deadline Tracking</li>
+            <li>• CV Builder</li>
+            <li>• Easy Navigation</li>
+          </ul>
+        </div>
+
+        {/* Column 4 */}
+        <div>
+          <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+            Contact
+          </h2>
+
+          <div className="mt-4 flex flex-col gap-4">
             <Link
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-700 hover:text-emerald-700 dark:text-neutral-200 dark:hover:text-emerald-300"
-              href="/contact"
+              href="https://github.com/SajedaHussaini"
+              className="inline-flex items-center gap-2 text-sm text-neutral-600 transition hover:text-emerald-600 dark:text-neutral-300 dark:hover:text-emerald-300"
             >
-              <Send className="h-4 w-4" aria-hidden="true" />
-              Contact API demo
+              <GitBranch className="h-4 w-4" />
+              GitHub
             </Link>
+
             <Link
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-700 hover:text-emerald-700 dark:text-neutral-200 dark:hover:text-emerald-300"
-              href="/dashboard"
+              href="https://www.linkedin.com/in/sajeda-hussaini-183613396?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+              className="inline-flex items-center gap-2 text-sm text-neutral-600 transition hover:text-emerald-600 dark:text-neutral-300 dark:hover:text-emerald-300"
             >
-              <Github className="h-4 w-4" aria-hidden="true" />
-              Admin approval demo
+              <Share2 className="h-4 w-4" />
+              LinkedIn
+            </Link>
+
+            <Link
+              href="https://x.com/HussainiSajeda"
+              className="inline-flex items-center gap-2 text-sm text-neutral-600 transition hover:text-emerald-600 dark:text-neutral-300 dark:hover:text-emerald-300"
+            >
+              <Bird className="h-4 w-4" />
+              X (Twitter)
             </Link>
           </div>
         </div>
       </div>
-      <div className="border-t border-neutral-200 px-4 py-4 text-center text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
-        Built with Next.js App Router, TypeScript, Tailwind CSS, LocalStorage,
-        Zod, Recharts, and Framer Motion.
+
+      <div className="border-t border-neutral-200 px-4 py-5 text-center text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+        © 2026 KaarYab Afghanistan. All rights reserved.
       </div>
     </footer>
   );

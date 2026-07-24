@@ -17,6 +17,7 @@ import {
   getTypeChartData,
 } from "@/lib/utils";
 import type { Opportunity } from "@/types/opportunity";
+import { memo, useMemo } from "react";
 
 const chartColors = [
   "#059669",
@@ -28,13 +29,14 @@ const chartColors = [
   "#0f766e",
 ];
 
-export function OpportunityCharts({
+export const OpportunityCharts = memo(function OpportunityCharts({
   opportunities,
 }: {
   opportunities: Opportunity[];
 }) {
-  const categoryData = getCategoryChartData(opportunities);
-  const typeData = getTypeChartData(opportunities);
+
+  const categoryData = useMemo(() => getCategoryChartData(opportunities), [opportunities]);
+  const typeData = useMemo(() => getTypeChartData(opportunities), [opportunities]);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
@@ -50,16 +52,30 @@ export function OpportunityCharts({
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={categoryData} margin={{ left: -18, right: 8 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#d4d4d4" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#020202" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12 }}
                 interval={0}
-                angle={-20}
+                tick={{
+                  fontSize:
+                    typeof window !== "undefined" && window.innerWidth < 640 ? 9 : 12,
+                }}
+                angle={
+                  typeof window !== "undefined" && window.innerWidth < 640 ? -45 : -20
+                }
                 textAnchor="end"
-                height={70}
+                height={
+                  typeof window !== "undefined" && window.innerWidth < 640 ? 90 : 70
+                }
               />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
+
+              <YAxis
+                allowDecimals={false}
+                tick={{
+                  fontSize:
+                    typeof window !== "undefined" && window.innerWidth < 640 ? 10 : 12,
+                }}
+              />
               <Tooltip />
               <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                 {categoryData.map((entry, index) => (
@@ -129,4 +145,4 @@ export function OpportunityCharts({
       </section>
     </div>
   );
-}
+});

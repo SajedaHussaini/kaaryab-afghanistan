@@ -2,12 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Download, FileText } from "lucide-react";
-import { useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Button } from "@/components/ui/Button";
 import { cvSchema, type CvFormValues } from "@/lib/schemas";
 import { splitLines } from "@/lib/utils";
 import { useToast } from "@/context/ToastContext";
+import { memo, useCallback, useMemo } from "react";
 
 const defaultCv: CvFormValues = {
   fullName: "Sajeda Hussaini",
@@ -24,7 +24,8 @@ const defaultCv: CvFormValues = {
   links: "https://github.com/example\nhttps://linkedin.com/in/example",
 };
 
-export function CvBuilder() {
+// export function CvBuilder() {
+export const CvBuilder = memo(function CvBuilder() {
   const { notify } = useToast();
   const {
     register,
@@ -37,7 +38,7 @@ export function CvBuilder() {
     mode: "onBlur",
   });
   const watchedValues = useWatch({ control });
-  const preview: CvFormValues = { ...defaultCv, ...watchedValues };
+  const preview = useMemo(() => ({ ...defaultCv, ...watchedValues, }), [watchedValues]);
 
   const skills = useMemo(() => splitLines(preview.skills ?? ""), [preview.skills]);
 
@@ -99,6 +100,7 @@ export function CvBuilder() {
       variant: "success",
     });
   };
+
 
   const inputClass =
     "h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900";
@@ -259,4 +261,4 @@ export function CvBuilder() {
       </aside>
     </div>
   );
-}
+});

@@ -8,6 +8,7 @@ import {
 } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 import type { OpportunityFilters } from "@/types/opportunity";
+import { useCallback } from "react";
 
 type SearchFilterProps = {
   filters: OpportunityFilters;
@@ -24,12 +25,26 @@ export function SearchFilter({
   onChange,
   onReset,
 }: SearchFilterProps) {
-  const updateFilter = <K extends keyof OpportunityFilters>(
-    key: K,
-    value: OpportunityFilters[K],
-  ) => {
-    onChange({ ...filters, [key]: value });
-  };
+
+  const updateFilter = useCallback(
+    <K extends keyof OpportunityFilters>(
+      key: K,
+      value: OpportunityFilters[K],
+    ) => {
+      onChange({ ...filters, [key]: value });
+    },
+    [filters, onChange],
+  );
+
+  const selectClass =
+    "h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900";
+
+  const labelClass =
+    "text-sm font-semibold text-neutral-700 dark:text-neutral-200";
+
+  const inputClass =
+    "h-11 w-full rounded-md border border-neutral-300 bg-white pl-9 pr-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900";
+
 
   return (
     <section className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
@@ -55,7 +70,7 @@ export function SearchFilter({
 
       <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-6">
         <label className="grid gap-1 xl:col-span-2">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Title or keyword
           </span>
           <span className="relative">
@@ -64,7 +79,7 @@ export function SearchFilter({
               aria-hidden="true"
             />
             <input
-              className="h-11 w-full rounded-md border border-neutral-300 bg-white pl-9 pr-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
+              className={inputClass}
               value={filters.query}
               onChange={(event) => updateFilter("query", event.target.value)}
               placeholder="Search jobs, scholarships..."
@@ -73,11 +88,11 @@ export function SearchFilter({
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Category
           </span>
           <select
-            className="h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
+            className={selectClass}
             value={filters.category}
             onChange={(event) =>
               updateFilter(
@@ -96,11 +111,11 @@ export function SearchFilter({
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Location
           </span>
           <select
-            className="h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
+            className={selectClass}
             value={filters.location}
             onChange={(event) => updateFilter("location", event.target.value)}
           >
@@ -114,11 +129,11 @@ export function SearchFilter({
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Remote or on-site
           </span>
           <select
-            className="h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
+            className={selectClass}
             value={filters.type}
             onChange={(event) =>
               updateFilter("type", event.target.value as OpportunityFilters["type"])
@@ -134,12 +149,11 @@ export function SearchFilter({
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Deadline
           </span>
           <select
-            className="h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
-            value={filters.deadline}
+            className={selectClass}
             onChange={(event) =>
               updateFilter(
                 "deadline",
@@ -156,11 +170,11 @@ export function SearchFilter({
         </label>
 
         <label className="grid gap-1 md:col-span-2 xl:col-span-2">
-          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+          <span className={labelClass}>
             Opportunity type
           </span>
           <select
-            className="h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900"
+            className={selectClass}
             value={filters.opportunityType}
             onChange={(event) =>
               updateFilter(

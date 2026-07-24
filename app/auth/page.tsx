@@ -12,9 +12,8 @@ export default function AuthPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Bonus feature"
-        title="Mock authentication"
-        description="Use a local demo account to test student, organization, and admin workflows without a backend auth provider."
+        title="Welcome back"
+        description="Sign in to explore personalized features and manage your opportunities."
       />
       <AuthPanel />
     </>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CvBuilder } from "@/components/forms/CvBuilder";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+
 
 export const metadata: Metadata = {
   title: "PDF CV Builder",
@@ -10,12 +12,13 @@ export const metadata: Metadata = {
 export default function CvBuilderPage() {
   return (
     <>
+    <ProtectedRoute>
       <PageHeader
-        eyebrow="Bonus feature"
         title="PDF CV builder"
         description="Create a clean applicant CV and download it as a PDF directly from the browser."
       />
       <CvBuilder />
+      </ProtectedRoute>
     </>
   );
 }

@@ -11,26 +11,34 @@ import {
 import { storageKeys } from "@/lib/constants";
 import { readStorage, removeStorage, writeStorage } from "@/lib/storage";
 import type { AppUser, UserRole } from "@/types/opportunity";
+import type { ReactNode } from "react";
 
 type AuthContextValue = {
   user: AppUser | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
   signIn: (input: { name: string; email: string; role: UserRole }) => void;
   signOut: () => void;
 };
 
+
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export function AuthProvider({ children }: AuthProviderProps) {
+
   const [user, setUser] = useState<AppUser | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      setUser(readStorage<AppUser | null>(storageKeys.user, null));
-    }, 0);
+useEffect(() => {
+  const savedUser = readStorage<AppUser | null>(storageKeys.user, null);
 
-    return () => window.clearTimeout(timeout);
-  }, []);
+  setUser(savedUser);
+  setIsLoading(false);
+}, []);
 
   const signIn = useCallback(
     (input: { name: string; email: string; role: UserRole }) => {
@@ -53,14 +61,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({
-      user,
-      isAuthenticated: Boolean(user),
-      signIn,
-      signOut,
-    }),
-    [signIn, signOut, user],
-  );
+  () => ({
+    user,
+    isAuthenticated: Boolean(user),
+    isLoading,
+    signIn,
+    signOut,
+  }),
+  [user, isLoading, signIn, signOut],
+);
+
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

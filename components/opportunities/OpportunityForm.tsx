@@ -12,6 +12,7 @@ import {
 import { opportunityFormSchema, type OpportunityFormValues } from "@/lib/schemas";
 import { joinLines, splitLines } from "@/lib/utils";
 import type { Opportunity, OpportunityInput } from "@/types/opportunity";
+import { useCallback } from "react";
 
 type OpportunityFormProps = {
   mode: "create" | "edit";
@@ -20,6 +21,7 @@ type OpportunityFormProps = {
   allowAdminFields?: boolean;
   submittedBy?: string;
   onSubmit: (input: OpportunityInput) => void | Promise<void>;
+  onCancel?: () => void;
 };
 
 function getDefaultDeadline() {
@@ -54,9 +56,11 @@ export function OpportunityForm({
   mode,
   initialOpportunity,
   submitLabel = mode === "create" ? "Submit opportunity" : "Save changes",
+
   allowAdminFields = false,
   submittedBy,
   onSubmit,
+  onCancel,
 }: OpportunityFormProps) {
   const {
     register,
@@ -68,28 +72,32 @@ export function OpportunityForm({
     mode: "onBlur",
   });
 
-  const submitForm = async (values: OpportunityFormValues) => {
-    await onSubmit({
-      title: values.title,
-      organization: values.organization,
-      category: values.category,
-      location: values.location,
-      type: values.type,
-      opportunityType: values.opportunityType,
-      deadline: values.deadline,
-      description: values.description,
-      requirements: splitLines(values.requirements),
-      applyLink: values.applyLink,
-      tags: splitLines(values.tags),
-      featured: allowAdminFields
-        ? values.featured
-        : (initialOpportunity?.featured ?? false),
-      status: allowAdminFields
-        ? values.status
-        : (initialOpportunity?.status ?? "pending"),
-      submittedBy: values.submittedBy || undefined,
-    });
-  };
+  // const submitForm = async (values: OpportunityFormValues) => {
+  const submitForm = useCallback(
+    async (values: OpportunityFormValues) => {
+      await onSubmit({
+        title: values.title,
+        organization: values.organization,
+        category: values.category,
+        location: values.location,
+        type: values.type,
+        opportunityType: values.opportunityType,
+        deadline: values.deadline,
+        description: values.description,
+        requirements: splitLines(values.requirements),
+        applyLink: values.applyLink,
+        tags: splitLines(values.tags),
+        featured: allowAdminFields
+          ? values.featured
+          : (initialOpportunity?.featured ?? false),
+        status: allowAdminFields
+          ? values.status
+          : (initialOpportunity?.status ?? "pending"),
+        submittedBy: values.submittedBy || undefined,
+      });
+    },
+    [onSubmit, allowAdminFields, initialOpportunity]
+  );
 
   const inputClass =
     "h-11 rounded-md border border-neutral-300 bg-white px-3 text-sm text-neutral-950 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:ring-emerald-900";
@@ -269,27 +277,7 @@ export function OpportunityForm({
             {...register("submittedBy")}
           />
         </label>
-
-        {allowAdminFields ? (
-          <div className="grid gap-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900 md:col-span-2 md:grid-cols-2">
-            <label className="grid gap-2">
-              <span className={labelClass}>Approval status</span>
-              <select className={inputClass} {...register("status")}>
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
-                <option value="rejected">Rejected</option>
-              </select>
-            </label>
-            <label className="flex items-center gap-3 self-end rounded-md border border-neutral-200 bg-white px-3 py-3 text-sm font-semibold text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200">
-              <input
-                type="checkbox"
-                className="h-4 w-4 accent-emerald-600"
-                {...register("featured")}
-              />
-              Feature on home page
-            </label>
-          </div>
-        ) : null}
+        
       </div>
 
       <div className="mt-6 flex flex-col gap-3 border-t border-neutral-100 pt-5 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800">
@@ -301,6 +289,16 @@ export function OpportunityForm({
           <Save className="h-4 w-4" aria-hidden="true" />
           {isSubmitting ? "Saving..." : submitLabel}
         </Button>
+
+        {onCancel && (
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+        )}
       </div>
     </form>
   );
