@@ -46,7 +46,8 @@ KaarYab Afghanistan is a modern opportunity finder platform that helps Afghan yo
 
 # Project Description
 
-This is a final capstone project built with: Next.js App Router, TypeScript, React, Tailwind CSS, LocalStorage, mock API route handlers, React Hook Form, Zod, Recharts, Framer Motion, resend, and jsPDF.
+This is an opportunity finder project which built with: Next.js App Router, TypeScript, React, Tailwind CSS, LocalStorage, mock API route handlers, React Hook Form, Zod, Recharts, Framer Motion, resend, and jsPDF.
+
 ---
 
 # Problem It Solves
