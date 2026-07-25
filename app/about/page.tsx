@@ -2,16 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-
   BookmarkCheck,
   BriefcaseBusiness,
-
   Globe,
-
   Search,
-
   ShieldCheck,
-
   Users,
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";

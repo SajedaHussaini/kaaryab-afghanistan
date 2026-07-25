@@ -4,6 +4,17 @@ import type {
   OpportunityFilters,
 } from "@/types/opportunity";
 
+const DAY_IN_MS = 86_400_000;
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+const sortByDeadline = (a: Opportunity, b: Opportunity) =>
+  a.deadline.localeCompare(b.deadline);
+
 export function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -15,11 +26,7 @@ export function createId(prefix = "opp") {
 }
 
 export function formatDate(date: string) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(`${date}T00:00:00`));
+  return dateFormatter.format(new Date(`${date}T00:00:00`));
 }
 
 export function daysUntil(deadline: string) {
@@ -27,7 +34,7 @@ export function daysUntil(deadline: string) {
   const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const end = new Date(`${deadline}T00:00:00`);
 
-  return Math.ceil((end.getTime() - start.getTime()) / 86_400_000);
+  return Math.ceil((end.getTime() - start.getTime()) / DAY_IN_MS);
 }
 
 export function isExpiringSoon(deadline: string, days = 14) {
@@ -50,6 +57,31 @@ export function joinLines(value: string[]) {
   return value.join("\n");
 }
 
+function getApprovedOpportunities(opportunities: Opportunity[]) {
+  return opportunities.filter(
+    (item) => item.status === "approved",
+  );
+}
+
+function groupOpportunities(
+  opportunities: Opportunity[],
+  selector: (item: Opportunity) => string,
+) {
+  const grouped = opportunities.reduce<Record<string, number>>(
+    (acc, item) => {
+      const key = selector(item);
+      acc[key] = (acc[key] ?? 0) + 1;
+      return acc;
+    },
+    {},
+  );
+
+  return Object.entries(grouped).map(([name, value]) => ({
+    name,
+    value,
+  }));
+}
+
 export function getUniqueLocations(opportunities: Opportunity[]) {
   return Array.from(new Set(opportunities.map((item) => item.location))).sort();
 }
@@ -64,18 +96,18 @@ export function filterOpportunities(
   return opportunities
     .filter((opportunity) => includePending || opportunity.status === "approved")
     .filter((opportunity) => {
+      const searchableText = [
+        opportunity.title,
+        opportunity.organization,
+        opportunity.description,
+        opportunity.location,
+        opportunity.tags.join(" "),
+      ]
+        .join(" ")
+        .toLowerCase();
+
       const matchesQuery =
-        !query ||
-        [
-          opportunity.title,
-          opportunity.organization,
-          opportunity.description,
-          opportunity.location,
-          opportunity.tags.join(" "),
-        ]
-          .join(" ")
-          .toLowerCase()
-          .includes(query);
+        !query || searchableText.includes(query);
 
       const matchesCategory =
         filters.category === "All" || opportunity.category === filters.category;
@@ -104,11 +136,11 @@ export function filterOpportunities(
         matchesDeadline
       );
     })
-    .sort((a, b) => a.deadline.localeCompare(b.deadline));
+    .sort(sortByDeadline);
 }
 
 export function getDashboardStats(opportunities: Opportunity[]): DashboardStats {
-  const approved = opportunities.filter((item) => item.status === "approved");
+  const approved = getApprovedOpportunities(opportunities);
 
   return {
     total: opportunities.length,
@@ -125,23 +157,17 @@ export function getDashboardStats(opportunities: Opportunity[]): DashboardStats 
 }
 
 export function getCategoryChartData(opportunities: Opportunity[]) {
-  const approved = opportunities.filter((item) => item.status === "approved");
-  const grouped = approved.reduce<Record<string, number>>((acc, item) => {
-    acc[item.category] = (acc[item.category] ?? 0) + 1;
-    return acc;
-  }, {});
-
-  return Object.entries(grouped).map(([name, value]) => ({ name, value }));
+  return groupOpportunities(
+    getApprovedOpportunities(opportunities),
+    (item) => item.category,
+  );
 }
 
 export function getTypeChartData(opportunities: Opportunity[]) {
-  const approved = opportunities.filter((item) => item.status === "approved");
-  const grouped = approved.reduce<Record<string, number>>((acc, item) => {
-    acc[item.type] = (acc[item.type] ?? 0) + 1;
-    return acc;
-  }, {});
-
-  return Object.entries(grouped).map(([name, value]) => ({ name, value }));
+  return groupOpportunities(
+    getApprovedOpportunities(opportunities),
+    (item) => item.type,
+  );
 }
 
 export function getRecentOpportunities(opportunities: Opportunity[], limit = 6) {
@@ -153,11 +179,11 @@ export function getRecentOpportunities(opportunities: Opportunity[], limit = 6) 
 export function getFeaturedOpportunities(opportunities: Opportunity[]) {
   return opportunities
     .filter((item) => item.status === "approved" && item.featured)
-    .sort((a, b) => a.deadline.localeCompare(b.deadline));
+    .sort(sortByDeadline);
 }
 
 export function getExpiringOpportunities(opportunities: Opportunity[]) {
   return opportunities
     .filter((item) => item.status === "approved" && isExpiringSoon(item.deadline))
-    .sort((a, b) => a.deadline.localeCompare(b.deadline));
-}
+    .sort(sortByDeadline);
+};

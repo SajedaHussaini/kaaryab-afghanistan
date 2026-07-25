@@ -11,7 +11,7 @@ export const opportunities: Opportunity[] = [
     location: "Kabul",
     type: "Remote",
     opportunityType: "Part-time",
-    deadline: "2026-07-20",
+    deadline: "2026-08-20",
     description:
       "A beginner-friendly internship for students who know React and want practical Next.js project experience.",
     requirements: ["Basic React", "HTML and CSS", "GitHub profile"],
@@ -51,7 +51,7 @@ export const opportunities: Opportunity[] = [
     location: "Online",
     type: "Remote",
     opportunityType: "Full-time",
-    deadline: "2026-07-02",
+    deadline: "2026-09-02",
     description:
       "Support international customers through chat and email while working from home with flexible shifts.",
     requirements: ["English writing", "Stable internet", "Problem solving"],
@@ -71,7 +71,7 @@ export const opportunities: Opportunity[] = [
     location: "Online",
     type: "Remote",
     opportunityType: "Self-paced",
-    deadline: "2026-07-15",
+    deadline: "2026-08-30",
     description:
       "A practical online course covering spreadsheet formulas, dashboards, and basic data storytelling.",
     requirements: ["Laptop or phone", "Basic math", "Weekly practice time"],
@@ -111,7 +111,7 @@ export const opportunities: Opportunity[] = [
     location: "Jalalabad",
     type: "Hybrid",
     opportunityType: "Cohort",
-    deadline: "2026-07-07",
+    deadline: "2026-11-07",
     description:
       "A four-week practical training on social content, ads, analytics, and freelance client communication.",
     requirements: ["Interest in marketing", "Smartphone", "Commitment to attend"],
@@ -131,7 +131,7 @@ export const opportunities: Opportunity[] = [
     location: "Mazar-e-Sharif",
     type: "On-site",
     opportunityType: "Volunteer",
-    deadline: "2026-08-01",
+    deadline: "2026-12-01",
     description:
       "Mentor high school students in study habits, career planning, and scholarship application basics.",
     requirements: ["Mentoring mindset", "Two hours weekly", "Local availability"],
@@ -171,7 +171,7 @@ export const opportunities: Opportunity[] = [
     location: "Kandahar",
     type: "On-site",
     opportunityType: "Full-time",
-    deadline: "2026-07-11",
+    deadline: "2026-07-31",
     description:
       "Assist senior engineers with site documentation, measurements, and progress reporting on community projects.",
     requirements: ["Civil engineering study", "Site visits", "MS Office"],
@@ -191,7 +191,7 @@ export const opportunities: Opportunity[] = [
     location: "Bamyan",
     type: "Hybrid",
     opportunityType: "Part-time",
-    deadline: "2026-07-25",
+    deadline: "2026-08-25",
     description:
       "Facilitate weekly coding sessions for girls learning HTML, CSS, JavaScript, and project teamwork.",
     requirements: ["Teaching interest", "Basic web skills", "Safe learning values"],
