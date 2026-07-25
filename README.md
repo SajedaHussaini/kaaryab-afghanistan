@@ -1,4 +1,4 @@
-# 🇦🇫 KaarYab Afghanistan
+#  KaarYab Afghanistan
 
 <p align="center">
   <img src="./public/web-logo.png" width="120" alt="KaarYab Afghanistan Logo">
@@ -46,22 +46,7 @@ KaarYab Afghanistan is a modern opportunity finder platform that helps Afghan yo
 
 # Project Description
 
-This is a final capstone project built with:
-
-- Next.js 16 App Router
-- React 19
-- TypeScript
-- Tailwind CSS
-- React Hook Form
-- Zod
-- Context API
-- LocalStorage
-- Mock API Routes
-- Recharts
-- Framer Motion
-- Resend
-- jsPDF
-
+This is a final capstone project built with: Next.js App Router, TypeScript, React, Tailwind CSS, LocalStorage, mock API route handlers, React Hook Form, Zod, Recharts, Framer Motion, resend, and jsPDF.
 ---
 
 # Problem It Solves
@@ -74,31 +59,31 @@ KaarYab Afghanistan brings all opportunities together into one searchable, filte
 
 # Features
 
-✅ Featured Opportunities
+- Featured Opportunities
 
-✅ Advanced Search
+- Advanced Search
 
-✅ Smart Filters
+- Smart Filters
 
-✅ Opportunity Details
+- Opportunity Details
 
-✅ Save Opportunities
+- Save Opportunities
 
-✅ Local CRUD
+- Local CRUD
 
-✅ Dashboard Analytics
+- Dashboard Analytics
 
-✅ Dark Mode
+- Dark Mode
 
-✅ Mock Authentication
+- Mock Authentication
 
-✅ Admin Approval System
+- Admin Approval System
 
-✅ Contact Form
+- Contact Form
 
-✅ PDF CV Builder
+- PDF CV Builder
 
-✅ Responsive Design
+- Responsive Design
 
 ---
 
@@ -120,7 +105,7 @@ KaarYab Afghanistan brings all opportunities together into one searchable, filte
 
 ---
 
-# ⚙ Installation
+#  Installation
 
 Clone the repository
 
@@ -138,7 +123,7 @@ npm install
 
 ---
 
-# 🔑 Environment Variables
+#  Environment Variables
 
 Create a `.env.local`
 
@@ -148,7 +133,7 @@ RESEND_API_KEY=your_resend_api_key
 
 ---
 
-# ▶ Running Locally
+#  Running Locally
 
 ```bash
 npm run dev
@@ -278,8 +263,22 @@ https://github.com/SajedaHussaini/kaaryab-afghanistan
 
 ---
 
+---
+
+##  Let's Connect
+
 <p align="center">
 
-Made with ❤️ using Next.js & React
+<a href="https://www.linkedin.com/in/sajeda-hussaini-183613396?utm_source=share_via&utm_content=profile&utm_medium=member_android">
+<img src="https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
 
+<a href="https://x.com/HussainiSajeda">
+<img src="https://img.shields.io/badge/Follow%20on%20X-000000?style=for-the-badge&logo=x&logoColor=white"/>
+</a>
+
+</p>
+
+<p align="center">
+ If you found this project useful, consider giving it a star ⭐ on GitHub.
 </p>
