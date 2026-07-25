@@ -1,104 +1,285 @@
+# 🇦🇫 KaarYab Afghanistan
+
+<p align="center">
+  <img src="./public/web-logo.png" width="120" alt="KaarYab Afghanistan Logo">
+</p>
+
+<p align="center">
+  <b>Modern Opportunity Finder Platform for Afghan Youth</b>
+</p>
+
+<p align="center">
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?logo=tailwindcss)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+</p>
+
+---
+
+## Table of Contents
+
+- Overview
+- Project Description
+- Problem It Solves
+- Features
+- Tech Stack
+- Installation
+- Environment Variables
+- Running Locally
+- Demo Admin
+- Screenshots
+- Live Demo
+- GitHub Repository
+- Future Improvements
+
+---
+
 # KaarYab Afghanistan
 
 KaarYab Afghanistan is a modern opportunity finder platform that helps Afghan youth discover jobs, internships, scholarships, remote work, online courses, training programs, and volunteer opportunities in one place.
 
-## Project Description
+---
 
-This is a final capstone project built with Next.js App Router, TypeScript, React, Tailwind CSS, LocalStorage, mock API route handlers, React Hook Form, Zod, Recharts, Framer Motion, resend, and jsPDF.
+# Project Description
 
-The app uses clearly labeled demo data. If real opportunity data is added later, every listing should be verified before publishing.
-
-## Problem It Solves
-
-Opportunity information for Afghan students, graduates, job seekers, and organizations is often scattered across websites, social pages, and private groups. KaarYab brings those opportunities into one searchable, filterable, saveable, and manageable platform.
-
-## Features
-
-- Home page with featured opportunities, statistics, quick search, and expiring soon records
-- Opportunities page with search and filters by title, category, location, remote/on-site mode, deadline, and type
-- Dynamic opportunity details route at `/opportunities/[id]`
-- Save opportunity feature using LocalStorage and Context API
-- Add opportunity form with React Hook Form and Zod validation
-- Full local CRUD: create, read, edit, delete
-- Dashboard with totals, job/scholarship/internship counts, remote count, expiring soon count, pending queue, recent submissions, and charts
-- Dark mode with persisted theme preference
-- Mock authentication with student, organization, and admin roles
-- Admin approval system for pending opportunities
-- Featured opportunities and expiring soon badges
-- Contact form backed by a mock API route at `/api/contact`
-- PDF CV builder using jsPDF
-- Responsive mobile, tablet, and desktop layout
-- Loading, empty, error, modal, badge, card, and form states
-
-## Technologies Used
+This is a final capstone project built with:
 
 - Next.js 16 App Router
 - React 19
 - TypeScript
-- Tailwind CSS 4
+- Tailwind CSS
 - React Hook Form
 - Zod
 - Context API
 - LocalStorage
-- Next.js route handlers
+- Mock API Routes
 - Recharts
 - Framer Motion
-- Lucide React
+- Resend
 - jsPDF
-- resend
-- ESLint
 
-## How to Run Locally
+---
+
+# Problem It Solves
+
+Opportunity information for Afghan students, graduates, job seekers, and organizations is scattered across different websites and social media.
+
+KaarYab Afghanistan brings all opportunities together into one searchable, filterable, saveable, and manageable platform.
+
+---
+
+# Features
+
+✅ Featured Opportunities
+
+✅ Advanced Search
+
+✅ Smart Filters
+
+✅ Opportunity Details
+
+✅ Save Opportunities
+
+✅ Local CRUD
+
+✅ Dashboard Analytics
+
+✅ Dark Mode
+
+✅ Mock Authentication
+
+✅ Admin Approval System
+
+✅ Contact Form
+
+✅ PDF CV Builder
+
+✅ Responsive Design
+
+---
+
+# Tech Stack
+
+| Category | Technologies |
+|-----------|-------------|
+| Framework | Next.js 16 |
+| UI | React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Forms | React Hook Form + Zod |
+| Charts | Recharts |
+| Animation | Framer Motion |
+| Email | Resend |
+| PDF | jsPDF |
+| Icons | Lucide React |
+| Storage | LocalStorage |
+
+---
+
+# ⚙ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/SajedaHussaini/kaaryab-afghanistan.git
+
+cd kaaryab-afghanistan
+```
+
+Install dependencies
 
 ```bash
 npm install
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env.local`
+
+```env
+RESEND_API_KEY=your_resend_api_key
+```
+
+---
+
+# ▶ Running Locally
+
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open
 
-Useful checks:
+```
+http://localhost:3000
+```
+
+Useful commands
 
 ```bash
 npm run lint
 npm run build
 ```
 
-## Demo Admin
+---
 
-Open `/auth` and sign in with the default admin demo values:
+# Demo Admin
 
-- Name: `KaarYab Admin`
-- Email: `admin@kaaryab.af`
-- Role: `admin`
+| Field | Value |
+|-------|------|
+| Name | KaarYab Admin |
+| Email | admin@kaaryab.af |
+| Role | admin |
 
-Then open `/dashboard` to approve, reject, feature, or delete opportunities.
+Visit
 
-## Screenshots
+```
+/auth
+```
 
-Add final screenshots after deployment:
+then
 
-- Home page
-- Opportunities search and filters
-- Opportunity details
-- Add opportunity form
-- Dashboard charts and approval queue
-- CV builder
+```
+/dashboard
+```
 
-## Live Demo Link
+---
 
-Add the Vercel link after deployment.
+# Screenshots
 
-## GitHub Link
+## Home
 
-Add the GitHub repository link after pushing the project.
+![](./public/home.png)
 
-## Future Improvements
+---
 
-- Real authentication with protected admin routes
-- Database-backed opportunities and approval workflow
-- Real email delivery for contact messages
-- Organization profiles
-- Applicant tracking
-- Verified real opportunity feeds
-- Multi-language support in English, Dari, and Pashto
+## Opportunities
+
+![](./public/opportunities.png)
+
+---
+
+## Add Opportunity
+
+![](./public/add-opportunity.png)
+
+---
+
+## Opportunity Details
+
+![](./public/opportunity-details.png)
+
+---
+
+## Saved
+
+![](./public/saved.png)
+
+---
+
+##  Dashboard
+
+![](./public/dashboard.png)
+
+---
+
+##  CV Builder
+
+![](./public/cv-builder.png)
+
+---
+
+##  About
+
+![](./public/about.png)
+
+---
+
+##  Contact
+
+![](./public/contact.png)
+
+---
+
+##  Sign In
+
+![](./public/sign-in.png)
+
+---
+
+#  Live Demo
+
+https://kaaryab-afghanistan-orcin.vercel.app/
+
+---
+
+#  GitHub Repository
+
+https://github.com/SajedaHussaini/kaaryab-afghanistan
+
+---
+
+#  Future Improvements
+
+- Database integration
+- Real Authentication
+- Protected Admin Dashboard
+- Applicant Tracking System
+- Organization Profiles
+- Verified Opportunity Sources
+- Email Notifications
+- English / Dari / Pashto Localization
+
+---
+
+<p align="center">
+
+Made with ❤️ using Next.js & React
+
+</p>

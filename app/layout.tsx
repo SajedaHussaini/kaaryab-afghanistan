@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kaaryab.af"),
+  metadataBase: new URL("https://kaaryab-afghanistan-orcin.vercel.app/"),
   icons:{
     icon: "/web-favicon.png"
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description:
       "Discover jobs, internships, scholarships, remote work, online courses, training programs, and volunteer opportunities across Afghanistan.",
 
-    url: "https://kaaryab.af",
+    url: "https://kaaryab-afghanistan-orcin.vercel.app/",
 
     siteName: "KaarYab Afghanistan",
 
