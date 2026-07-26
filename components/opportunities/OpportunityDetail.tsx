@@ -210,7 +210,7 @@ export function OpportunityDetail({ id }: { id: string }) {
       <Modal
         isOpen={isDeleteOpen}
         title="Delete opportunity?"
-        description="This removes the local demo record from this browser. Seed data can be restored from the dashboard."
+        description="Are you sure you want to delete this opportunity? This cannot be undone."
         confirmLabel="Delete"
         destructive
         onConfirm={confirmDelete}
